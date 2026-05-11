@@ -1,0 +1,82 @@
+-- Case #003: The Miami Marina Murder
+-- Objective: Identify the murderer using SQL queries and logical deduction
+
+---
+
+## -- Step 1: Read the crime scene report
+
+SELECT description
+FROM crime_scene
+WHERE location = 'Coral Bay Marina'
+AND date = 19860814;
+
+---
+
+## -- Step 2: Find witness living on Ocean Drive
+
+SELECT *
+FROM person
+WHERE address LIKE '%Ocean Drive%';
+
+---
+
+-- Step 3: Find witness whose first name ends with "ul"
+-- and last name ends with "ez"
+-------------------------------
+
+SELECT *
+FROM person
+WHERE name LIKE '%ul %ez';
+
+---
+
+## -- Step 4: Read witness interviews
+
+SELECT *
+FROM interviews
+WHERE person_id IN (101, 102);
+
+---
+
+## -- Step 5: Investigate hotel check-ins
+
+SELECT *
+FROM hotel_checkins
+WHERE check_in_date = 19860813
+AND hotel_name LIKE '%Sunset%';
+
+---
+
+## -- Step 6: Connect hotel records with surveillance activity
+
+SELECT
+surveillance_records.person_id,
+surveillance_records.suspicious_activity
+FROM hotel_checkins
+JOIN surveillance_records
+ON hotel_checkins.id = surveillance_records.hotel_checkin_id
+WHERE check_in_date = 19860813
+AND hotel_name LIKE '%Sunset%'
+AND suspicious_activity IS NOT NULL;
+
+---
+
+## -- Step 7: Read confession
+
+SELECT confession
+FROM confessions
+WHERE person_id = 8;
+
+---
+
+## -- Step 8: Identify the murderer
+
+SELECT name
+FROM person
+WHERE id = 8;
+
+---
+
+## -- Final Result
+
+-- Murderer Identified: Thomas Brown
