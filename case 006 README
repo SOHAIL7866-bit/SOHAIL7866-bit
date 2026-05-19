@@ -1,0 +1,33 @@
+🚨 Solved SQL Noir Case #006 — The Vanishing Diamond 💎
+
+Just completed another SQL detective investigation where data analysis and logical querying uncovered the thief behind a luxury diamond heist.
+
+🕵️ The Case:
+At Miami’s prestigious Fontainebleau Hotel charity gala, the legendary “Heart of Atlantis” diamond necklace suddenly disappeared from its display.
+
+The investigation began by analyzing the crime scene report and witness statements.
+
+🔍 Witness Clues:
+• Someone mentioned meeting at marina dock 3
+• The suspect carried an invitation ending with “-R”
+• The suspect wore a navy suit with a white tie
+
+Using SQL, I investigated multiple relational tables and gradually narrowed down the suspects through filtering and JOIN operations.
+
+🧠 SQL Concepts Used:
+✔️ WHERE filtering
+✔️ LIKE operators
+✔️ INNER JOIN
+✔️ DISTINCT
+✔️ Multi-table analysis
+✔️ Clue-based data investigation
+
+After combining marina rental records, guest information, and attire registry data, one final suspect remained.
+
+🎯 Final Result:
+The investigation identified Mike Manning as the true thief after the final interview resulted in a confession.
+
+This project reminded me that SQL is more than querying tables —
+it’s about uncovering stories hidden inside data.
+
+#SQL #DataAnalytics #DataAnalyst #OpenToWork #PortfolioProject #Database #Analytics #LearningInPublic #GitHub #ProblemSolving #SQLProjects #Tech #DataScience
