@@ -1,0 +1,190 @@
+# SQL Noir Case #006 — The Vanishing Diamond 💎
+
+## Overview
+
+This project is a detective-style SQL investigation where the objective is to identify the thief behind the disappearance of the famous “Heart of Atlantis” diamond necklace during a luxury charity gala at the Fontainebleau Hotel in Miami.
+
+The investigation was solved entirely through SQL queries, clue analysis, and relational database investigation.
+
+---
+
+# Step 1 — Investigating the Crime Scene
+
+The first step was retrieving the crime scene report.
+
+```sql
+SELECT *
+FROM crime_scene
+WHERE location = 'Fontainebleau Hotel';
+```
+
+### Result
+
+The report revealed:
+
+* The necklace disappeared during the gala
+* Two witnesses provided valuable clues
+* One witness was a famous actor
+* Another witness was a consultant whose first name ended with "an"
+
+---
+
+# Step 2 — Finding the Actor Witness
+
+```sql
+SELECT *
+FROM guest
+WHERE occupation LIKE 'actor';
+```
+
+### Result
+
+This query returned multiple actors including:
+
+* Clint Eastwood
+* Ruby Baker
+* River Bowers
+* Sage Dillon
+* Phoenix Pitts
+
+---
+
+# Step 3 — Finding the Consultant Witness
+
+```sql
+SELECT *
+FROM guest
+WHERE name LIKE '%an%'
+AND occupation LIKE 'consultant';
+```
+
+### Result
+
+The consultant witness was identified as:
+
+✅ Vivian Nair
+
+---
+
+# Step 4 — Retrieving Witness Statements
+
+```sql
+SELECT *
+FROM witness_statements
+WHERE guest_id IN (43,129,164,189,192,116);
+```
+
+### Witness Clues
+
+The statements revealed:
+
+* Someone mentioned:
+  "Meet me at the marina, dock 3."
+* The suspect had:
+
+  * An invitation ending with "-R"
+  * A navy suit
+  * A white tie
+
+---
+
+# Step 5 — Checking Attire Registry
+
+```sql
+SELECT *
+FROM attire_registry
+WHERE note LIKE '%navy suit%'
+AND note LIKE '%white tie%';
+```
+
+### Result
+
+Several guests matched the clothing description.
+
+---
+
+# Step 6 — Investigating Marina Rentals
+
+```sql
+SELECT *
+FROM marina_rentals
+WHERE dock_number = 3
+AND rental_date = 19870520;
+```
+
+### Result
+
+This narrowed the investigation to guests who rented boats at dock 3 on the night of the theft.
+
+---
+
+# Step 7 — Combining Evidence Using JOIN
+
+```sql
+SELECT DISTINCT a.guest_id
+FROM attire_registry a
+JOIN marina_rentals m
+ON a.guest_id = m.renter_guest_id
+WHERE a.note LIKE '%navy suit%'
+AND a.note LIKE '%white tie%'
+AND m.dock_number = 3
+AND m.rental_date = 19870520;
+```
+
+### Result
+
+The suspect list was reduced significantly after combining:
+
+* Attire clues
+* Marina activity
+* Witness statements
+
+---
+
+# Step 8 — Final Identification
+
+A final JOIN with the guest table and additional investigation identified the true thief.
+
+```sql
+SELECT g.id, g.name, g.invitation_code
+FROM guest g
+JOIN attire_registry a
+ON g.id = a.guest_id
+JOIN marina_rentals m
+ON g.id = m.renter_guest_id
+WHERE a.note LIKE '%navy suit%'
+AND a.note LIKE '%white tie%'
+AND g.invitation_code LIKE '%-R'
+AND m.dock_number = 3
+AND m.rental_date = 19870520;
+```
+
+---
+
+# Final Outcome 🎯
+
+✅ The investigation concluded that the true thief was:
+
+# Mike Manning
+
+The suspect eventually confessed during the final interview.
+
+---
+
+# SQL Skills Demonstrated
+
+* SELECT statements
+* WHERE filtering
+* LIKE operator
+* INNER JOIN
+* DISTINCT
+* Multi-table investigation
+* Clue-based analysis
+* Relational database querying
+* Problem solving
+
+---
+
+# Conclusion
+
+This project demonstrates how SQL can be used not only for querying databases but also for solving investigative problems through logical analysis and relational data exploration.
